@@ -1,0 +1,13 @@
+<div>
+    
+    <label>Name:</label>
+    <input type="text" ng-model="name" placeholder="Enter a name here">
+    <hr>
+    <h1>Hello, {{name}}!</h1>
+    <button ng-click="showTasks()">
+        Show tasks
+    </button>
+    
+    <task ng-if="tasks.length" ng-repeat="task in tasks" ng-bind="task.content"></task>
+    
+</div>
