@@ -6,8 +6,9 @@ var myApp = angular.module('myApp', ['ngRoute']);
 */
 myApp.service('myTasks', function() {
 
-	var _this = this;
+    var _this = this;
     
+    // This is our souce for now
     var userTasks = [
         {
             content: "Go buy beers"
@@ -20,8 +21,12 @@ myApp.service('myTasks', function() {
         }
     ];
     
+    // This is our get function for this service.
+    // It returns the data source from above
+    // TODO make a restFull request and return the results
+    // instead of static data.
     _this.get = function() {
-    	return userTasks;
+        return userTasks;
     };
     
 });
@@ -33,14 +38,19 @@ myApp.service('myTasks', function() {
 */
 myApp.controller('MyController', 
     function($scope, tasks) {
-
-        $scope.name = 'Joe';
         
-        $scope.tasks = [];
-        
-        $scope.showTasks = function() {
-        	$scope.tasks = tasks; 
-        };
+    // Let's give to our user a name
+    $scope.name = 'Joe';
+    
+    // Init our tasks scope as an empty array
+    $scope.tasks = [];
+    
+    // Simple function here, if user clicks on the
+    // show tasks button then just pass to the scope
+    // the items from the injected resolver
+    $scope.showTasks = function() {
+      	$scope.tasks = tasks; 
+    };
 });
 
 /* 
@@ -50,32 +60,34 @@ myApp.controller('MyController',
 */
 myApp.directive('task', function() {
   return {
-    scope: {},
-    restrict: 'AE',
-    replace: 'true',
-    template: '<h5></h5>'
+      replace: 'true',
+      template: '<h5></h5>'
   };
 });
 
 /* 
 * Let's create the routing of our app
 */
-myApp.config(function($routeProvider, $locationProvider) {
-  $routeProvider
-   .when('/', {
-    templateUrl: 'templates/template.html',
-    controller: 'MyController',
-    resolve: {
-    	tasks: function(myTasks) {
-      		return myTasks.get();
-      	}
-    }
-  });
+myApp.config(
+    function($routeProvider, $locationProvider) {
+    
+    // With $routeProvider you can set your
+    // application routes and set rules for errors etc. 
+    $routeProvider
+      .when('/', {
+        templateUrl: 'templates/template.html',
+        controller: 'MyController',
+        resolve: {
+          tasks: function(myTasks) {
+              return myTasks.get();
+          }
+        }
+      });
 
   // Enable Html5 Mode
   $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
+      enabled: true,
+      requireBase: false
   });
   
 });
