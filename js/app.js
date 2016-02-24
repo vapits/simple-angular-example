@@ -5,10 +5,8 @@ var myApp = angular.module('myApp', ['ngRoute']);
 * data source
 */
 myApp.service('myTasks', function() {
-
-    var _this = this;
     
-    // This is our souce for now
+    // This is our source for now
     var userTasks = [
         {
             content: "Go buy beers"
@@ -25,7 +23,7 @@ myApp.service('myTasks', function() {
     // It returns the data source from above
     // TODO make a restFull request and return the results
     // instead of static data.
-    _this.get = function() {
+    this.get = function() {
         return userTasks;
     };
     
