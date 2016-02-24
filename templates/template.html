@@ -8,6 +8,10 @@
         Show tasks
     </button>
     
-    <task ng-if="tasks.length" ng-repeat="task in tasks" ng-bind="task.content"></task>
+    <task 
+        ng-if="tasks.length" 
+        ng-repeat="task in tasks" 
+        ng-bind="task.content">
+    </task>
     
 </div>
